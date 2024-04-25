@@ -1,1 +1,1 @@
-# Fable.Library.SDK
+# Fable.Package.SDK
