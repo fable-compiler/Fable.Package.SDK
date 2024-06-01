@@ -1,0 +1,72 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!--
+        If FablePackageType is a library, we need to include the source files in the Nuget package.
+    -->
+    <ItemGroup Condition="'$(FablePackageType)' == 'library'">
+        <!-- Include all files that are compiled with this project -->
+        <Content Include="@(Compile)" Pack="true"
+            PackagePath="fable/%(RelativeDir)%(Filename)%(Extension)" />
+        <!-- Include the project file itself as well -->
+        <Content Include="$(MSBuildThisFileFullPath)" Pack="true" PackagePath="fable/" />
+    </ItemGroup>
+    <!--
+        Automatically add Fable tags
+    -->
+    <PropertyGroup>
+        <!-- If fable is not already in the tags add it -->
+        <PackageTags
+            Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable)($|;)'))"
+        >$(PackageTags);fable</PackageTags>
+        <!-- Add the correct tag depending on the package type -->
+        <PackageTags
+            Condition="'$(FablePackageType)' == 'library'
+                    And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-library)($|;)'))"
+        >$(PackageTags);fable-library</PackageTags>
+        <PackageTags
+            Condition="'$(FablePackageType)' == 'binding'
+                    And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-binding)($|;)'))"
+        >$(PackageTags);fable-binding</PackageTags>
+    </PropertyGroup>
+    <!--
+        Good practices for improving developers experience inside their editors, specifically
+        enabling Go To Definition (F12 in most editors) to work on your library's code.
+    -->
+    <PropertyGroup>
+        <!-- Ensure debugging information is easily found, so that editors can locate the source
+            code locations for your library. This slightly increases the size of your package, but the
+            usability benefits are worth it. -->
+        <DebugType>embedded</DebugType>
+        <!-- Ensure that files that are generated during the build by the .NET SDK are also included
+            in your compiled library. -->
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    </PropertyGroup>
+    <!--
+        Add a verification step to ensure that the package is correctly configured.
+
+        We want to do the check only when the user is trying to pack the project.
+        For example, if the user is working / testing the project locally, we don't need to
+        enforce these checks.
+    -->
+    <Target Name="FableVerification" BeforeTargets="Pack">
+        <!-- Uncomment below for debugging the PackageTags -->
+        <!-- <Message Text="$(PackageTags)" Importance="high" /> -->
+        <!-- Check that the package type has been set -->
+        <Error
+            Text="The property FablePackageType must be set to 'library' or 'binding'."
+            Condition="'$(FablePackageType)' != 'library' And '$(FablePackageType)' != 'binding'" />
+        <!-- Check that at least one target has been set via the PackageTags -->
+        <Error
+            Text="You need to set at least one of Fable target via the PackageTags property."
+            Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-dart)($|;)'))
+            And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-dotnet)($|;)'))
+            And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-javascript)($|;)'))
+            And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-python)($|;)'))
+            And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-rust)($|;)'))
+            And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-all)($|;)'))" />
+        <!-- Check if users did not set both 'fable-library' and 'fable-binding' tags -->
+        <Error
+            Text="You cannot set both 'fable-library' and 'fable-binding' tags. If you used `PackageTags` to set 'fable-library' or 'fable-binding' tags, you should remove them. It will be automatically added based on the FablePackageType property."
+            Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-library)($|;)'))
+            And $([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-binding)($|;)'))" />
+    </Target>
+</Project>
