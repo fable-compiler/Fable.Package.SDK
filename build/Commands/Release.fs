@@ -63,9 +63,10 @@ let private parseCommitMessage (commitMsg: string) =
             Description = m.Groups.["description"].Value
             BreakingChange = m.Groups.["breakingChange"].Success
         }
+        |> Ok
 
     else
-        failwith
+        Error
             $"Invalid commit message format.
 
 Expected a commit message with the following format: <type>[optional scope]: <description>
@@ -151,13 +152,18 @@ type ReleaseCommand() =
 
         let releaseCommits =
             commits
-            // Parse the commit to get the commit information
+            // Parse the commit to get the commit information (ignore invalid commits)
             |> Seq.map (fun commit ->
-                {|
-                    Commit = commit
-                    CommitMessage = parseCommitMessage commit.MessageShort
-                |}
+                match parseCommitMessage commit.MessageShort with
+                | Ok commitMessage ->
+                    Some {|
+                        Commit = commit
+                        CommitMessage = commitMessage
+                    |}
+                | Error _ -> None
             )
+            |> Seq.filter Option.isSome
+            |> Seq.map Option.get
             // Remove commits that don't trigger a release
             |> Seq.filter (fun commit ->
                 match commit.CommitMessage.Type with
@@ -344,7 +350,5 @@ type ReleaseCommand() =
             )
 
             Command.Run("git", "push")
-
-            // PublishCommand().Execute(context, PublishSettings(SkipBuild = true)) |> ignore
 
             0
