@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <FablePackageType>library</FablePackageType>
+        <PackageTags>fable-library</PackageTags>
+    </PropertyGroup>
+    <Import Project="./../Fable.Package.SDK.Imports.props" />
+</Project>

@@ -1,0 +1,8 @@
+<!--
+    To run the tests we import the files manually because it seems like referencing
+    the project directly doesn't work.
+-->
+<Project>
+    <Import Project="$(MSBuildThisFileDirectory)/../../src/build/Fable.Package.SDK.props" />
+    <Import Project="$(MSBuildThisFileDirectory)/../../src/build/Fable.Package.SDK.targets" />
+</Project>

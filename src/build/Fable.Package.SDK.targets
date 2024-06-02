@@ -1,3 +1,4 @@
+<!-- Things placed in this file require information setted by the consuming project -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <!--
         If FablePackageType is a library, we need to include the source files in the Nuget package.
@@ -28,19 +29,6 @@
         >$(PackageTags);fable-binding</PackageTags>
     </PropertyGroup>
     <!--
-        Good practices for improving developers experience inside their editors, specifically
-        enabling Go To Definition (F12 in most editors) to work on your library's code.
-    -->
-    <PropertyGroup>
-        <!-- Ensure debugging information is easily found, so that editors can locate the source
-            code locations for your library. This slightly increases the size of your package, but the
-            usability benefits are worth it. -->
-        <DebugType>embedded</DebugType>
-        <!-- Ensure that files that are generated during the build by the .NET SDK are also included
-            in your compiled library. -->
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    </PropertyGroup>
-    <!--
         Add a verification step to ensure that the package is correctly configured.
 
         We want to do the check only when the user is trying to pack the project.
@@ -56,7 +44,7 @@
             Condition="'$(FablePackageType)' != 'library' And '$(FablePackageType)' != 'binding'" />
         <!-- Check that at least one target has been set via the PackageTags -->
         <Error
-            Text="You need to set at least one of Fable target via the PackageTags property."
+            Text="You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
             Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-dart)($|;)'))
             And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-dotnet)($|;)'))
             And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-javascript)($|;)'))
@@ -69,4 +57,7 @@
             Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-library)($|;)'))
             And $([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-binding)($|;)'))" />
     </Target>
+    <Target Name="GetOutputValue">
+        <Message Importance="high" Text="$(PackageTags)"></Message>
+        </Target>
 </Project>
