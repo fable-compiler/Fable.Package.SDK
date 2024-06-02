@@ -28,7 +28,6 @@ Set the `FablePackageType` property in your project file to one of the following
 
     Examples of libraries could be [Fable.Promise](https://github.com/fable-compiler/fable-promise/), [Elmish](https://elmish.github.io/), [Thoth.Json](https://thoth-org.github.io//Thoth.Json/), [Feliz](https://zaid-ajaj.github.io/Feliz/)
 
-    > [!NOTE]
     > This will include the source files in the package.
 
 - `binding`: If your package consist of a set of API to make a native library available
@@ -38,8 +37,9 @@ Set the `FablePackageType` property in your project file to one of the following
     - A package which makes an NPM package API available
     - A package which makes the Browser API available
     - A package which makes a cargo package API available
+    
+    <br/>
 
-    > [!NOTE]
     > Only the DLL will be included in the package, allowing for a faster build and smaller package size.
 
 ### 2. Specify the targets
