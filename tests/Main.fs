@@ -124,7 +124,7 @@ module ``fable-binding tag addition`` =
         }
 
     [<Test>]
-    let ``fable-binding tag should not .be added if already present`` () =
+    let ``fable-binding tag should not be added if already present`` () =
         task {
             let! stdout, _ =
                 Command.ReadAsync(
