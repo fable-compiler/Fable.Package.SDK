@@ -1,5 +1,7 @@
 # Fable.Package.SDK
 
+[![NuGet](https://img.shields.io/nuget/v/EasyBuild.CommitLinter.svg)](https://www.nuget.org/packages/Fable.Package.SDK)
+
 Fable.Package.SDK is a set of MSBuild targets and tasks that help you build and package Fable projects.
 
 ## Features 🚀
