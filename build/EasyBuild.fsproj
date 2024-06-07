@@ -3,6 +3,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <ManagePackageVersionsCentrally>False</ManagePackageVersionsCentrally>
+        <ContinuousIntegrationBuild>false</ContinuousIntegrationBuild>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Workspace.fs" />

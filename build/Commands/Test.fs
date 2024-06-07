@@ -22,6 +22,8 @@ type TestCommand() =
     interface ICommandLimiter<TestSettings>
 
     override __.Execute(context, settings) =
+        printfn "CWD: %s" (Environment.CurrentDirectory)
+
         Command.Run(
             "dotnet",
             CmdLine.empty
