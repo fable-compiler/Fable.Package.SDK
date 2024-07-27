@@ -221,3 +221,22 @@ let ``should support multiple fable targets`` () =
             Is.EqualTo("fable-rust;fable-javascript;fable-python;fable;fable-library")
         )
     }
+
+[<Test>]
+let ``should include the source file and the project file under 'fable' folder`` () =
+    task {
+        let! stdout, _ =
+            Command.ReadAsync(
+                "dotnet",
+                $"msbuild %s{Workspace.fixtures.valid.``library-with-files``.``MyLibrary.fsproj``} --getItem:Content"
+            )
+
+        Assert.That(
+            stdout.Trim(),
+            Contains.Substring("tests/fixtures/valid/library-with-files/Entry.fs")
+        )
+        Assert.That(
+            stdout.Trim(),
+            Contains.Substring("tests/fixtures/valid/library-with-files/MyLibrary.fsproj")
+        )
+    }
