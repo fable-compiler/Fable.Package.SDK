@@ -5,8 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- EasyBuild: START -->
-<!-- last_commit_released: d526029c796345b2b5fea140a52f6805a2b7e0bb -->
+<!-- last_commit_released: 96f7e39fdf55be3b37ec48e1f32be0202677381c -->
 <!-- EasyBuild: END -->
+
+## 1.0.0
+
+### 🐞 Bug Fixes
+
+- Include the original project file instead of `Fable.Package.SDK.targets` ([96f7e39](https://github.com/easybuild-org/EasyBuild.FileSystemProvider/commit/96f7e39fdf55be3b37ec48e1f32be0202677381c))
 
 ## 0.1.0
 
