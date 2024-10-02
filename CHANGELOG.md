@@ -5,8 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- EasyBuild: START -->
-<!-- last_commit_released: 96f7e39fdf55be3b37ec48e1f32be0202677381c -->
+<!-- last_commit_released: b9efefa005eeb12a5354fe393d7d1748ca749e03 -->
 <!-- EasyBuild: END -->
+
+## 1.1.0
+
+### 🚀 Features
+
+- Mark the library as `DevelopmentDependency` so`PrivateAssets` is set by default ([b9efefa](https://github.com/easybuild-org/EasyBuild.FileSystemProvider/commit/b9efefa005eeb12a5354fe393d7d1748ca749e03))
 
 ## 1.0.0
 
