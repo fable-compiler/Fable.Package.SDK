@@ -2,6 +2,8 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Fable.Package.SDK.svg)](https://www.nuget.org/packages/Fable.Package.SDK)
 
+[![Sponsors badge link](https://img.shields.io/badge/Sponsors_this_project-EA4AAA?style=for-the-badge)](https://mangelmaxime.github.io/sponsors/)
+
 Fable.Package.SDK is a set of MSBuild targets and tasks that help you build and package Fable projects.
 
 ## Features 🚀
@@ -39,7 +41,7 @@ Set the `FablePackageType` property in your project file to one of the following
     - A package which makes an NPM package API available
     - A package which makes the Browser API available
     - A package which makes a cargo package API available
-    
+
     <br/>
 
     > Only the DLL will be included in the package, allowing for a faster build and smaller package size.
