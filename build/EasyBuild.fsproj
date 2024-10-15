@@ -17,7 +17,7 @@
     <ItemGroup>
       <PackageReference Include="BlackFox.CommandLine" Version="1.0.0" />
       <PackageReference Include="EasyBuild.FileSystemProvider" Version="0.3.0" />
-      <PackageReference Include="FSharp.Core" Version="8.0.200" />
+      <PackageReference Include="FSharp.Core" Version="8.0.400" />
       <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
       <PackageReference Include="Semver" Version="2.3.0" />
       <PackageReference Include="SimpleExec" Version="12.0.0" />
