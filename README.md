@@ -18,8 +18,31 @@ Fable.Package.SDK is a set of MSBuild targets and tasks that help you build and 
 
 ## Installation
 
+### .NET CLI
+
 ```bash
 dotnet add package Fable.Package.SDK
+```
+
+This will add the package to your project file.
+
+```xml
+<PackageReference Include="Fable.Package.SDK" Version="x.y.z" />
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>all</PrivateAssets>
+</PackageReference>
+```
+
+These rules are necessary to ensure that the package is not included in the final package, you don't want you package to depend on `Fable.Package.SDK` at runtime.
+
+### Paket
+
+```bash
+# In your paket.dependencies
+nuget Fable.Package.SDK copy_local: true
+
+# In your paket.references
+Fable.Package.SDK
 ```
 
 ## Usage
