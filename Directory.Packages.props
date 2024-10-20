@@ -4,7 +4,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="EasyBuild.FileSystemProvider" Version="0.3.0" />
+    <PackageVersion Include="EasyBuild.PackageReleaseNotes.Tasks" Version="1.2.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
     <PackageVersion Include="FSharp.Core" Version="8.0.101" />
+    <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="17.11.4" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageVersion Include="NUnit" Version="4.1.0" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.2.0">
@@ -13,5 +18,6 @@
     </PackageVersion>
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageVersion Include="SimpleExec" Version="12.0.0" />
+    <PackageVersion Include="Thoth.Json.Newtonsoft" Version="0.2.0" />
   </ItemGroup>
 </Project>

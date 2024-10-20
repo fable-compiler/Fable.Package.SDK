@@ -5,10 +5,17 @@
     -->
     <ItemGroup Condition="'$(FablePackageType)' == 'library'">
         <!-- Include all files that are compiled with this project -->
-        <Content Include="@(Compile)" Pack="true"
+        <!--
+            Rider and VS don't like using 'Content' or 'None' node for the rule below
+
+            IHMO, this is a bug on their side, because in previous versions of Rider, 'Node' was working
+        -->
+        <!-- <None Include="@(Compile)" Pack="true"
+            PackagePath="fable/%(RelativeDir)%(Filename)%(Extension)" /> -->
+        <Compile Update="@(Compile)" Pack="true"
             PackagePath="fable/%(RelativeDir)%(Filename)%(Extension)" />
         <!-- Include the project file itself as well -->
-        <Content Include="$(MSBuildProjectFullPath)" Pack="true" PackagePath="fable/" />
+        <None Include="$(MSBuildProjectFullPath)"  Pack="true" PackagePath="fable/" Visible="false"/>
     </ItemGroup>
     <!--
         Automatically add Fable tags
