@@ -5,8 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- EasyBuild: START -->
-<!-- last_commit_released: b9efefa005eeb12a5354fe393d7d1748ca749e03 -->
+<!-- last_commit_released: 3dfe5f11c5e3637e6622a67b959b60035a547261 -->
 <!-- EasyBuild: END -->
+
+## 1.2.0
+
+### 🐞 Bug Fixes
+
+- Workaround limitations in VS and Rider ([3dfe5f1](https://github.com/easybuild-org/EasyBuild.FileSystemProvider/commit/3dfe5f11c5e3637e6622a67b959b60035a547261))
 
 ## 1.1.0
 
