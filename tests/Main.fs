@@ -229,7 +229,8 @@ let ``should include the source file and the project file under 'fable' folder``
             VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibrary.1.0.0.nupkg``
             |> FileInfo
 
-        fileInfo.Delete()
+        if fileInfo.Exists then
+            fileInfo.Delete()
 
         Command.Run(
             "dotnet",
