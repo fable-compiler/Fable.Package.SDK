@@ -5,8 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- EasyBuild: START -->
-<!-- last_commit_released: 3dfe5f11c5e3637e6622a67b959b60035a547261 -->
+<!-- last_commit_released: 908bc9c49c6b15bedbae0bbe9c9d77cd07961d14 -->
 <!-- EasyBuild: END -->
+
+## 1.3.0
+
+### 🐞 Bug Fixes
+
+- Add sources files only when packaging the package so we don't impact IDE ([908bc9c](https://github.com/easybuild-org/EasyBuild.FileSystemProvider/commit/908bc9c49c6b15bedbae0bbe9c9d77cd07961d14))
 
 ## 1.2.0
 
