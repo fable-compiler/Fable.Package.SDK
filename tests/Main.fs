@@ -3,8 +3,8 @@ module Fable.Package.SDK.Tests
 // open Microsoft.VisualStudio.TestTools.UnitTesting
 open SimpleExec
 open NUnit.Framework
-open Thoth.Json.Core
-open Thoth.Json.Newtonsoft
+open System.IO
+open System.IO.Compression
 
 let private expectToFailWithMessage projectName (message: string) =
     task {
@@ -221,62 +221,35 @@ let ``should support multiple fable targets`` () =
         )
     }
 
-type MSBuildItem =
-    {
-        FullPath: string
-        Pack: bool
-    }
-
-    static member Decoder =
-        Decode.object (fun get ->
-            {
-                FullPath = get.Required.Field "FullPath" Decode.string
-                Pack =
-                    get.Required.Field
-                        "Pack"
-                        (Decode.string
-                         |> Decode.andThen (
-                             function
-                             | "true" -> Decode.succeed true
-                             | "false" -> Decode.succeed false
-                             | _ -> Decode.fail "Invalid boolean value"
-                         ))
-            }
-        )
-
 [<Test>]
 let ``should include the source file and the project file under 'fable' folder`` () =
     task {
-        let! stdout, _ =
-            Command.ReadAsync(
-                "dotnet",
-                $"msbuild %s{Workspace.fixtures.valid.``library-with-files``.``MyLibrary.fsproj``} --getItem:None --getItem:Compile"
-            )
+        // Make sure we work with a fresh nupkg file
+        let fileInfo =
+            VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibrary.1.0.0.nupkg``
+            |> FileInfo
 
-        let projectFile =
-            Decode.unsafeFromString
-                (Decode.at [ "Items"; "None" ] (Decode.list MSBuildItem.Decoder))
-                stdout
-            // We are only interested in the project file
-            |> List.filter (fun item -> item.FullPath.Contains("MyLibrary.fsproj"))
-            |> List.head
+        fileInfo.Delete()
 
-        let compileItem =
-            Decode.unsafeFromString
-                (Decode.at [ "Items"; "Compile" ] (Decode.index 0 MSBuildItem.Decoder))
-                stdout
-
-        Assert.That(compileItem.Pack, Is.True)
-
-        Assert.That(
-            compileItem.FullPath,
-            Contains.Substring("tests/fixtures/valid/library-with-files/Entry.fs")
+        Command.Run(
+            "dotnet",
+            $"pack %s{Workspace.fixtures.valid.``library-with-files``.``MyLibrary.fsproj``}"
         )
 
-        Assert.That(projectFile.Pack, Is.True)
+        let archive = ZipFile.OpenRead(VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibrary.1.0.0.nupkg``)
+
+        let entries =
+            archive.Entries
+            |> Seq.map (fun entry -> entry.FullName)
+            |> Seq.toList
 
         Assert.That(
-            projectFile.FullPath,
-            Contains.Substring("tests/fixtures/valid/library-with-files/MyLibrary.fsproj")
+            entries,
+            Contains.Item("fable/Entry.fs")
+        )
+
+        Assert.That(
+            entries,
+            Contains.Item("fable/MyLibrary.fsproj")
         )
     }

@@ -18,6 +18,5 @@
         </PackageReference>
         <PackageReference Include="NUnit3TestAdapter" />
         <PackageReference Include="SimpleExec" />
-        <PackageReference Include="Thoth.Json.Newtonsoft" />
     </ItemGroup>
 </Project>

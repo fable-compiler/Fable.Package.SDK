@@ -48,29 +48,6 @@
         "resolved": "12.0.0",
         "contentHash": "ptxlWtxC8vM6Y6e3h9ZTxBBkOWnWrm/Sa1HT+2i1xcXY3Hx2hmKDZP5RShPf8Xr9D+ivlrXNy57ktzyH8kyt+Q=="
       },
-      "Thoth.Json.Newtonsoft": {
-        "type": "Direct",
-        "requested": "[0.2.0, )",
-        "resolved": "0.2.0",
-        "contentHash": "dMQOT6TJftO97c8gHWFegfSw/0/E+VdhGaSkf3e1Ba+DjrAESLA9HMlYyE30x7nhn7w5SfH1WO9YyzSRTV4Ysg==",
-        "dependencies": {
-          "FSharp.Core": "5.0.0",
-          "Fable.Core": "4.1.0",
-          "Fable.Package.SDK": "0.1.0",
-          "Newtonsoft.Json": "13.0.1",
-          "Thoth.Json.Core": "0.3.0"
-        }
-      },
-      "Fable.Core": {
-        "type": "Transitive",
-        "resolved": "4.1.0",
-        "contentHash": "NISAbAVGEcvH2s+vHLSOCzh98xMYx4aIadWacQdWPcQLploxpSQXLEe9SeszUBhbHa73KMiKREsH4/W3q4A4iA=="
-      },
-      "Fable.Package.SDK": {
-        "type": "Transitive",
-        "resolved": "0.1.0",
-        "contentHash": "wrEcGovUimN0PRGgVHlX/gsqCm5d/p9eOG74iaHoteX2dsFZQ9P7d066LRAl5Gj7GUHy7azLyDE41KFvZx1v9A=="
-      },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
         "resolved": "17.10.0",
@@ -102,16 +79,6 @@
         "type": "Transitive",
         "resolved": "1.6.0",
         "contentHash": "COC1aiAJjCoA5GBF+QKL2uLqEBew4JsCkQmoHKbN3TlOZKa2fKLz5CpiRQKDz0RsAOEGsVKqOD5bomsXq/4STQ=="
-      },
-      "Thoth.Json.Core": {
-        "type": "Transitive",
-        "resolved": "0.3.0",
-        "contentHash": "6JNLVfP7ne16TvgKXpmhQru1VwXs5QGdQ6YZNdAL84e11MvxJFXKlcbNSNRw3dOI3yruYz0OKvpCRaHpV6JGcA==",
-        "dependencies": {
-          "FSharp.Core": "5.0.0",
-          "Fable.Core": "4.1.0",
-          "Fable.Package.SDK": "0.1.0"
-        }
       }
     }
   }
