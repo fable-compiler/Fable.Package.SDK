@@ -16,6 +16,11 @@
             Include="build\*"
             Pack="true"
             PackagePath="build\" />
+        <!-- Support libraries using TargetFrameworks https://github.com/dotnet/msbuild/issues/1860 -->
+        <Content
+            Include="build\*"
+            Pack="true"
+            PackagePath="buildCrossTargeting\" />
     </ItemGroup>
     <!-- Disable dependency on FSharp.Core -->
     <ItemGroup>
