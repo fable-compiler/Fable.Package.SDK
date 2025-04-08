@@ -13,4 +13,5 @@ fixtures/
             bin/
                 Release/
                     MyLibrary.1.0.0.nupkg
+                    MyLibraryMultiTFM.1.0.0.nupkg
 """>

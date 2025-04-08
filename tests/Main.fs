@@ -38,9 +38,17 @@ let ``Missing FablePackageType property should report an error`` () =
 
 [<Test>]
 let ``Missing FableTarget property should report an error`` () =
-    expectToFailWithMessage
-        Workspace.fixtures.invalid.``MissingFableTarget.fsproj``
-        "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
+    task {
+        do!
+            expectToFailWithMessage
+                Workspace.fixtures.invalid.``MissingFableTarget.fsproj``
+                "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
+
+        do!
+            expectToFailWithMessage
+                Workspace.fixtures.invalid.``MissingFableTargetMultiTFM.fsproj``
+                "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
+    }
 
 [<Test>]
 let ``You cannot set both FablePackageType and FableTarget properties`` () =
@@ -237,20 +245,46 @@ let ``should include the source file and the project file under 'fable' folder``
             $"pack %s{Workspace.fixtures.valid.``library-with-files``.``MyLibrary.fsproj``}"
         )
 
-        let archive = ZipFile.OpenRead(VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibrary.1.0.0.nupkg``)
+        let archive =
+            ZipFile.OpenRead(
+                VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibrary.1.0.0.nupkg``
+            )
 
-        let entries =
-            archive.Entries
-            |> Seq.map (fun entry -> entry.FullName)
-            |> Seq.toList
+        let entries = archive.Entries |> Seq.map (fun entry -> entry.FullName) |> Seq.toList
 
-        Assert.That(
-            entries,
-            Contains.Item("fable/Entry.fs")
+        Assert.That(entries, Contains.Item("fable/Entry.fs"))
+
+        Assert.That(entries, Contains.Item("fable/MyLibrary.fsproj"))
+    }
+
+[<Test>]
+let ``should include the source file and the project file under 'fable' folder multi tfm`` () =
+    task {
+        // Make sure we work with a fresh nupkg file
+        let fileInfo =
+            VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibraryMultiTFM.1.0.0.nupkg``
+            |> FileInfo
+
+        if fileInfo.Exists then
+            fileInfo.Delete()
+
+        Command.Run(
+            "dotnet",
+            $"pack %s{Workspace.fixtures.valid.``library-with-files``.``MyLibraryMultiTFM.fsproj``}"
         )
 
-        Assert.That(
-            entries,
-            Contains.Item("fable/MyLibrary.fsproj")
-        )
+        let archive =
+            ZipFile.OpenRead(
+                VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibraryMultiTFM.1.0.0.nupkg``
+            )
+
+        let entries = archive.Entries |> Seq.map (fun entry -> entry.FullName) |> Seq.toList
+
+        Assert.That(entries, Contains.Item("fable/Entry.fs"))
+
+        Assert.That(entries, Contains.Item("fable/MyLibraryMultiTFM.fsproj"))
+
+        Assert.That(entries, Contains.Item("lib/netstandard2.0/MyLibraryMultiTFM.dll"))
+
+        Assert.That(entries, Contains.Item("lib/net8.0/MyLibraryMultiTFM.dll"))
     }
