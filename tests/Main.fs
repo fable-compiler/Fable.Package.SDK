@@ -303,6 +303,12 @@ let ``should include the source file and the project file under 'fable' folder -
             $"pack %s{Workspace.fixtures.valid.``library-with-files-multi-tfm``.``MyLibraryMultiTFM.fsproj``}"
         )
 
+        // Restore modified file to avoid polluting the Git history
+        Command.Run(
+            "git",
+            $"restore %s{Workspace.fixtures.valid.``library-with-files-multi-tfm``.``MyLibraryMultiTFM.fsproj``}"
+        )
+
         let archive =
             ZipFile.OpenRead(
                 VirtualWorkspace.fixtures.valid.``library-with-files-multi-tfm``.bin.Release.``MyLibraryMultiTFM.1.0.0.nupkg``
