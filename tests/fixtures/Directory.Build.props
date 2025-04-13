@@ -1,8 +1,4 @@
 <Project>
-    <!-- Disable central package version of tests projects -->
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
-    </PropertyGroup>
     <!-- Disable lock files for tests projects -->
     <PropertyGroup>
         <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>

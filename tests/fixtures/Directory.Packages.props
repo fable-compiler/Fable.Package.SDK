@@ -1,0 +1,6 @@
+<Project>
+  <!-- Disable central package version of tests projects -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+</Project>
