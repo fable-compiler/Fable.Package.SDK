@@ -10,3 +10,7 @@ bin/
 .DS_Store
 node_modules/
 demo/dist/
+
+# Don't track this file because we dynamically install packages for it during the build process
+tests/fixtures/valid/library-with-files-multi-tfm/packages.lock.json
+tests/temp/

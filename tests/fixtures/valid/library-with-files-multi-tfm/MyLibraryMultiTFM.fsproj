@@ -4,9 +4,19 @@
         <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
         <FablePackageType>library</FablePackageType>
         <PackageTags>fable-javascript</PackageTags>
+        <!--
+            Disable central package management because we install local package during tests
+            and we don't want that to impact the top level Directory.Packages.props
+        -->
+        <ManagePackageVersionsCentrally>False</ManagePackageVersionsCentrally>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Entry.fs" />
     </ItemGroup>
-    <Import Project="./../../Fable.Package.SDK.Imports.props" />
+    <ItemGroup>
+      <PackageReference Include="Fable.Package.SDK">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+    </ItemGroup>
 </Project>

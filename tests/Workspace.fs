@@ -7,6 +7,7 @@ type Workspace = RelativeFileSystem<".">
 
 type VirtualWorkspace = VirtualFileSystem<".",
 """
+temp/
 fixtures/
     valid/
         library-with-files/

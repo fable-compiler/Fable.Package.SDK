@@ -5,6 +5,8 @@ open SimpleExec
 open NUnit.Framework
 open System.IO
 open System.IO.Compression
+open BlackFox.CommandLine
+open System
 
 let private expectToFailWithMessage projectName (message: string) =
     task {
@@ -256,7 +258,7 @@ let ``should include the source file and the project file under 'fable' folder``
     }
 
 [<Test>]
-let ``should include the source file and the project file under 'fable' folder multi tfm`` () =
+let ``should include the source file and the project file under 'fable' folder - MultiTFM`` () =
     task {
         // Make sure we work with a fresh nupkg file
         let fileInfo =
@@ -265,6 +267,36 @@ let ``should include the source file and the project file under 'fable' folder m
 
         if fileInfo.Exists then
             fileInfo.Delete()
+
+        // When testing against multi Target Framework we need to use a "real package"
+        // because using the standard "Import" trick is not enough to capture errors
+        let tempPackageFolder = VirtualWorkspace.temp.``.`` |> FileInfo
+
+        if tempPackageFolder.Exists then
+            tempPackageFolder.Delete()
+
+        let tempVersion = "9.999.0-local-build-" + DateTime.Now.ToString("yyyyMMdd-HHmmss")
+
+        Command.Run(
+            "dotnet",
+            CmdLine.empty
+            |> CmdLine.append "pack"
+            |> CmdLine.append Workspace.``..``.src.``.``
+            |> CmdLine.appendPrefix "-o" tempPackageFolder.FullName
+            |> CmdLine.append $"/p:PackageVersion=%s{tempVersion}"
+            |> CmdLine.toString
+        )
+
+        Command.Run(
+            "dotnet",
+            CmdLine.empty
+            |> CmdLine.append "add"
+            |> CmdLine.appendPrefix "package" "Fable.Package.SDK"
+            |> CmdLine.appendPrefix "--version" tempVersion
+            |> CmdLine.appendPrefix "--source" tempPackageFolder.FullName
+            |> CmdLine.toString,
+            workingDirectory = Workspace.fixtures.valid.``library-with-files-multi-tfm``.``.``
+        )
 
         Command.Run(
             "dotnet",

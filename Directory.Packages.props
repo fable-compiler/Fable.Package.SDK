@@ -3,6 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="BlackFox.CommandLine" Version="1.0.0" />
     <PackageVersion Include="EasyBuild.FileSystemProvider" Version="0.3.0" />
     <PackageVersion Include="EasyBuild.PackageReleaseNotes.Tasks" Version="1.2.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
