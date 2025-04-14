@@ -1,0 +1,7 @@
+<Project>
+    <!-- Disable lock files for tests projects -->
+    <PropertyGroup>
+        <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+        <RestoreLockedMode>false</RestoreLockedMode>
+    </PropertyGroup>
+</Project>

@@ -5,6 +5,8 @@ open SimpleExec
 open NUnit.Framework
 open System.IO
 open System.IO.Compression
+open BlackFox.CommandLine
+open System
 
 let private expectToFailWithMessage projectName (message: string) =
     task {
@@ -41,6 +43,13 @@ let ``Missing FableTarget property should report an error`` () =
     expectToFailWithMessage
         Workspace.fixtures.invalid.``MissingFableTarget.fsproj``
         "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
+
+// Test disabled because it freeze on Github
+// [<Test>]
+// let ``Missing FableTarget property should report an error - MultiTFM`` () =
+//     expectToFailWithMessage
+//         Workspace.fixtures.invalid.``MissingFableTargetMultiTFM.fsproj``
+//         "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
 
 [<Test>]
 let ``You cannot set both FablePackageType and FableTarget properties`` () =
@@ -237,20 +246,78 @@ let ``should include the source file and the project file under 'fable' folder``
             $"pack %s{Workspace.fixtures.valid.``library-with-files``.``MyLibrary.fsproj``}"
         )
 
-        let archive = ZipFile.OpenRead(VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibrary.1.0.0.nupkg``)
+        let archive =
+            ZipFile.OpenRead(
+                VirtualWorkspace.fixtures.valid.``library-with-files``.bin.Release.``MyLibrary.1.0.0.nupkg``
+            )
 
-        let entries =
-            archive.Entries
-            |> Seq.map (fun entry -> entry.FullName)
-            |> Seq.toList
+        let entries = archive.Entries |> Seq.map (fun entry -> entry.FullName) |> Seq.toList
 
-        Assert.That(
-            entries,
-            Contains.Item("fable/Entry.fs")
+        Assert.That(entries, Contains.Item("fable/Entry.fs"))
+
+        Assert.That(entries, Contains.Item("fable/MyLibrary.fsproj"))
+    }
+
+[<Test>]
+let ``should include the source file and the project file under 'fable' folder - MultiTFM`` () =
+    task {
+        // Make sure we work with a fresh nupkg file
+        let fileInfo =
+            VirtualWorkspace.fixtures.valid.``library-with-files-multi-tfm``.bin.Release.``MyLibraryMultiTFM.1.0.0.nupkg``
+            |> FileInfo
+
+        if fileInfo.Exists then
+            fileInfo.Delete()
+
+        // When testing against multi Target Framework we need to use a "real package"
+        // because using the standard "Import" trick is not enough to capture errors
+        let tempPackageFolder = VirtualWorkspace.temp.``.`` |> FileInfo
+
+        if tempPackageFolder.Exists then
+            tempPackageFolder.Delete()
+
+        let tempVersion = "9.999.0-local-build-" + DateTime.Now.ToString("yyyyMMdd-HHmmss")
+
+        Command.Run(
+            "dotnet",
+            CmdLine.empty
+            |> CmdLine.append "pack"
+            |> CmdLine.append Workspace.``..``.src.``.``
+            |> CmdLine.appendPrefix "-o" tempPackageFolder.FullName
+            |> CmdLine.append $"/p:PackageVersion=%s{tempVersion}"
+            |> CmdLine.toString
         )
 
-        Assert.That(
-            entries,
-            Contains.Item("fable/MyLibrary.fsproj")
+        Command.Run(
+            "dotnet",
+            CmdLine.empty
+            |> CmdLine.append "add"
+            |> CmdLine.appendPrefix "package" "Fable.Package.SDK"
+            |> CmdLine.appendPrefix "--version" tempVersion
+            |> CmdLine.appendPrefix "--source" tempPackageFolder.FullName
+            |> CmdLine.toString,
+            workingDirectory = Workspace.fixtures.valid.``library-with-files-multi-tfm``.``.``
         )
+
+        Command.Run(
+            "dotnet",
+            $"pack %s{Workspace.fixtures.valid.``library-with-files-multi-tfm``.``MyLibraryMultiTFM.fsproj``}"
+        )
+
+        // Restore modified file to avoid polluting the Git history
+        Command.Run(
+            "git",
+            $"restore %s{Workspace.fixtures.valid.``library-with-files-multi-tfm``.``MyLibraryMultiTFM.fsproj``}"
+        )
+
+        let archive =
+            ZipFile.OpenRead(
+                VirtualWorkspace.fixtures.valid.``library-with-files-multi-tfm``.bin.Release.``MyLibraryMultiTFM.1.0.0.nupkg``
+            )
+
+        let entries = archive.Entries |> Seq.map (fun entry -> entry.FullName) |> Seq.toList
+
+        Assert.That(entries, Contains.Item("fable/Entry.fs"))
+
+        Assert.That(entries, Contains.Item("fable/MyLibraryMultiTFM.fsproj"))
     }
