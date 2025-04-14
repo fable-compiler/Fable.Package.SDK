@@ -29,7 +29,6 @@ type TestCommand() =
             CmdLine.empty
             |> CmdLine.appendIf settings.IsWatch "watch"
             |> CmdLine.appendRaw "test"
-            |> CmdLine.appendRaw "-v n"
             |> CmdLine.toString,
             workingDirectory = Workspace.tests.``.``
         )
