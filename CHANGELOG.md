@@ -5,8 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- EasyBuild: START -->
-<!-- last_commit_released: 908bc9c49c6b15bedbae0bbe9c9d77cd07961d14 -->
+<!-- last_commit_released: d8b16c7278793e3f304949e73d04d795a7502089 -->
 <!-- EasyBuild: END -->
+
+## 1.3.1
+
+### 🐞 Bug Fixes
+
+- Support libraries using TargetFrameworks property (#12) ([d8b16c7](https://github.com/easybuild-org/EasyBuild.FileSystemProvider/commit/d8b16c7278793e3f304949e73d04d795a7502089))
 
 ## 1.3.0
 
