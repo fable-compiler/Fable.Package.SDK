@@ -5,8 +5,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- EasyBuild: START -->
-<!-- last_commit_released: d8b16c7278793e3f304949e73d04d795a7502089 -->
+<!-- last_commit_released: 8bf303629a5b42b4a56419617bcafb4384ce1daf -->
 <!-- EasyBuild: END -->
+
+## 1.3.2
+
+### 🐞 Bug Fixes
+
+- Respect folder structure when copying `.fs` files under `fable` folder ([8bf3036](https://github.com/easybuild-org/EasyBuild.FileSystemProvider/commit/8bf303629a5b42b4a56419617bcafb4384ce1daf))
 
 ## 1.3.1
 
