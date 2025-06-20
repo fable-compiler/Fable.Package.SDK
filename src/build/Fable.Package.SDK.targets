@@ -10,7 +10,7 @@
         <ItemGroup>
             <_PackageFiles Include="@(Compile)">
                 <Pack>true</Pack>
-                <PackagePath>fable/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+                <PackagePath>fable/%(RelativeDir)%(Filename)%(Extension)</PackagePath>
                 <BuildAction>None</BuildAction>
             </_PackageFiles>
 

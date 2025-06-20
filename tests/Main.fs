@@ -321,3 +321,31 @@ let ``should include the source file and the project file under 'fable' folder -
 
         Assert.That(entries, Contains.Item("fable/MyLibraryMultiTFM.fsproj"))
     }
+
+[<Test>]
+let ``should include the sources files by respecting the folder structure and the project file under 'fable' folder`` () =
+    task {
+        // Make sure we work with a fresh nupkg file
+        let fileInfo =
+            VirtualWorkspace.fixtures.valid.``library-with-files-and-folder``.bin.Release.``MyLibrary.1.0.0.nupkg``
+            |> FileInfo
+
+        if fileInfo.Exists then
+            fileInfo.Delete()
+
+        Command.Run(
+            "dotnet",
+            $"pack %s{Workspace.fixtures.valid.``library-with-files-and-folder``.``MyLibrary.fsproj``}"
+        )
+
+        let archive =
+            ZipFile.OpenRead(
+                VirtualWorkspace.fixtures.valid.``library-with-files-and-folder``.bin.Release.``MyLibrary.1.0.0.nupkg``
+            )
+
+        let entries = archive.Entries |> Seq.map (fun entry -> entry.FullName) |> Seq.toList
+
+        Assert.That(entries, Contains.Item("fable/Entry.fs"))
+        Assert.That(entries, Contains.Item("fable/Global/Version.fs"))
+        Assert.That(entries, Contains.Item("fable/MyLibrary.fsproj"))
+    }

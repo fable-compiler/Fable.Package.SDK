@@ -18,4 +18,8 @@ fixtures/
             bin/
                 Release/
                     MyLibraryMultiTFM.1.0.0.nupkg
+        library-with-files-and-folder/
+            bin/
+                Release/
+                    MyLibrary.1.0.0.nupkg
 """>
