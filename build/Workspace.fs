@@ -7,9 +7,13 @@ let root = __SOURCE_DIRECTORY__ + "/../"
 
 type Workspace = RelativeFileSystem<root>
 
-type VirtualWorkspace = VirtualFileSystem<root, """
+type VirtualWorkspace =
+    VirtualFileSystem<
+        root,
+        """
 src
     bin/
 demo
     dist/
-""">
+"""
+     >

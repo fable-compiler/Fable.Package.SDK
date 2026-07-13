@@ -335,7 +335,9 @@ let ``should include the source file and the project file under 'fable' folder -
     }
 
 [<Test>]
-let ``should include the sources files by respecting the folder structure and the project file under 'fable' folder`` () =
+let ``should include the sources files by respecting the folder structure and the project file under 'fable' folder``
+    ()
+    =
     task {
         // Make sure we work with a fresh nupkg file
         let fileInfo =

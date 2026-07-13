@@ -15,9 +15,7 @@ let main args =
     app.Configure(fun config ->
         config.Settings.ApplicationName <- "./build.sh"
 
-        config
-            .AddCommand<TestCommand>("test")
-            .WithDescription("Run the tests")
+        config.AddCommand<TestCommand>("test").WithDescription("Run the tests")
         |> ignore
 
         config

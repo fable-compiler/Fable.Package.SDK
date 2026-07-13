@@ -5,8 +5,10 @@ open EasyBuild.FileSystemProvider
 
 type Workspace = RelativeFileSystem<".">
 
-type VirtualWorkspace = VirtualFileSystem<".",
-"""
+type VirtualWorkspace =
+    VirtualFileSystem<
+        ".",
+        """
 temp/
 fixtures/
     valid/
@@ -22,4 +24,5 @@ fixtures/
             bin/
                 Release/
                     MyLibrary.1.0.0.nupkg
-""">
+"""
+     >

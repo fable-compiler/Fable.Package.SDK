@@ -156,10 +156,11 @@ type ReleaseCommand() =
             |> Seq.map (fun commit ->
                 match parseCommitMessage commit.MessageShort with
                 | Ok commitMessage ->
-                    Some {|
-                        Commit = commit
-                        CommitMessage = commitMessage
-                    |}
+                    Some
+                        {|
+                            Commit = commit
+                            CommitMessage = commitMessage
+                        |}
                 | Error _ -> None
             )
             |> Seq.filter Option.isSome
