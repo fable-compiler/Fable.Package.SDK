@@ -11,7 +11,6 @@
         <Compile Include="Utils/Changelog.fs" />
         <Compile Include="Utils/Dotnet.fs" />
         <Compile Include="Commands/Test.fs" />
-        <Compile Include="Commands/Release.fs" />
         <Compile Include="Main.fs" />
     </ItemGroup>
     <ItemGroup>
