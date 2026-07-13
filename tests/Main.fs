@@ -42,14 +42,14 @@ let ``Missing FablePackageType property should report an error`` () =
 let ``Missing FableTarget property should report an error`` () =
     expectToFailWithMessage
         Workspace.fixtures.invalid.``MissingFableTarget.fsproj``
-        "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
+        "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-beam, fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
 
 // Test disabled because it freeze on Github
 // [<Test>]
 // let ``Missing FableTarget property should report an error - MultiTFM`` () =
 //     expectToFailWithMessage
 //         Workspace.fixtures.invalid.``MissingFableTargetMultiTFM.fsproj``
-//         "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
+//         "You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-beam, fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
 
 [<Test>]
 let ``You cannot set both FablePackageType and FableTarget properties`` () =
@@ -142,6 +142,18 @@ module ``fable-binding tag addition`` =
 
             Assert.That(stdout.Trim(), Is.EqualTo("fable-binding;fable"))
         }
+
+[<Test>]
+let ``should support fable-beam target`` () =
+    task {
+        let! stdout, _ =
+            Command.ReadAsync(
+                "dotnet",
+                $"msbuild %s{Workspace.fixtures.valid.``FableTarget_Beam.fsproj``} --getProperty:PackageTags"
+            )
+
+        Assert.That(stdout.Trim(), Is.EqualTo("fable-beam;fable;fable-library"))
+    }
 
 [<Test>]
 let ``should support fable-dart target`` () =

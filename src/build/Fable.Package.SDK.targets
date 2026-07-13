@@ -61,8 +61,9 @@
             Condition="'$(FablePackageType)' != 'library' And '$(FablePackageType)' != 'binding'" />
         <!-- Check that at least one target has been set via the PackageTags -->
         <Error
-            Text="You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
-            Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-dart)($|;)'))
+            Text="You need to set at least one of Fable target via the PackageTags property. Possible values are: fable-beam, fable-dart, fable-dotnet, fable-javascript, fable-python, fable-rust, fable-all."
+            Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-beam)($|;)'))
+            And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-dart)($|;)'))
             And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-dotnet)($|;)'))
             And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-javascript)($|;)'))
             And !$([System.Text.RegularExpressions.Regex]::IsMatch($(PackageTags), '(^|;)(fable-python)($|;)'))

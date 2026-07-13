@@ -73,6 +73,7 @@ Set the `FablePackageType` property in your project file to one of the following
 
 Choose one or more of the following tags:
 
+- `fable-beam`: Beam/Erlang is supported by the package
 - `fable-dart`: Dart is supported by the package
 - `fable-dotnet`: .NET is supported by the package
 - `fable-javascript`: JavaScript is supported by the package
