@@ -297,6 +297,7 @@ let ``should include the source file and the project file under 'fable' folder -
             |> CmdLine.append Workspace.``..``.src.``.``
             |> CmdLine.appendPrefix "-o" tempPackageFolder.FullName
             |> CmdLine.append $"/p:PackageVersion=%s{tempVersion}"
+            |> CmdLine.append "/p:EasyBuildPackageReleaseNotes_DisableSetVersion=true"
             |> CmdLine.toString
         )
 

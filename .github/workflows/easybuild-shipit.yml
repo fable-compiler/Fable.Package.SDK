@@ -69,11 +69,11 @@ jobs:
           # Secret is your NuGet username, e.g. andrewlock
           # This is actually a public information, so using a secret is probably overkill
           # if you want you can just hardcode your NuGet username here and not use a secret at all.
-          user: ${{ secrets.NUGET_USER }}
+          user: MangelMaxime
 
       - name: Build, Test and Release
         run: |
             dotnet pack src/ -c Release -o ./nupkgs
-            dotnet nuget push ./nupkgs/*.nupkg --api-key $NUGET_KEY
+            dotnet nuget push ./nupkgs/*.nupkg --api-key $NUGET_KEY --source https://api.nuget.org/v3/index.json
         env:
           NUGET_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
