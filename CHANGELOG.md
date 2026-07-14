@@ -1,10 +1,5 @@
 ---
-# If you are adopting EasyBuild.ShipIt from an existing project, it is recommended to fill in the hash
-# of the last commit released below
-last_commit_released: 8bf303629a5b42b4a56419617bcafb4384ce1daf
-#
-# Learn more about configuration at
-# https://github.com/easybuild-org/EasyBuild.ShipIt#configuration
+last_commit_released: b625bfb00cabbf16def347d047a938c03f69829b
 ---
 
 # Changelog
@@ -16,6 +11,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 This changelog is generated using [EasyBuild.ShipIt](https://github.com/easybuild-org/EasyBuild.ShipIt).
 
 ⚠ Only edit the front matter metadata at the top of this file. All other changes will be overwritten when a new release is created.
+
+## 1.4.0 - 2026-07-14
+
+### 🚀 Features
+
+* Add `fable-beam` tag support ([ea78ab7](https://github.com/fable-compiler/Fable.Package.SDK/commit/ea78ab7193de8af481977312cd4fced407413140))
+
+<strong><small>[View changes on Github](https://github.com/fable-compiler/Fable.Package.SDK/compare/8bf303629a5b42b4a56419617bcafb4384ce1daf..b625bfb00cabbf16def347d047a938c03f69829b)</small></strong>
 
 ## 1.3.2
 
