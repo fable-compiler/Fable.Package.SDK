@@ -271,6 +271,32 @@ let ``should include the source file and the project file under 'fable' folder``
     }
 
 [<Test>]
+let ``should not include any source file for a binding package`` () =
+    task {
+        // Make sure we work with a fresh nupkg file
+        let fileInfo =
+            VirtualWorkspace.fixtures.valid.``binding-with-files``.bin.Release.``MyBinding.1.0.0.nupkg``
+            |> FileInfo
+
+        if fileInfo.Exists then
+            fileInfo.Delete()
+
+        Command.Run(
+            "dotnet",
+            $"pack %s{Workspace.fixtures.valid.``binding-with-files``.``MyBinding.fsproj``}"
+        )
+
+        let archive =
+            ZipFile.OpenRead(
+                VirtualWorkspace.fixtures.valid.``binding-with-files``.bin.Release.``MyBinding.1.0.0.nupkg``
+            )
+
+        let entries = archive.Entries |> Seq.map (fun entry -> entry.FullName) |> Seq.toList
+
+        Assert.That(entries |> List.filter (fun entry -> entry.StartsWith "fable/"), Is.Empty)
+    }
+
+[<Test>]
 let ``should include the source file and the project file under 'fable' folder - MultiTFM`` () =
     task {
         // Make sure we work with a fresh nupkg file
