@@ -1,5 +1,5 @@
 ---
-last_commit_released: b625bfb00cabbf16def347d047a938c03f69829b
+last_commit_released: 1147fa3eb1f19b54d86214c4947e0eb1218d8c0c
 ---
 
 # Changelog
@@ -11,6 +11,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 This changelog is generated using [EasyBuild.ShipIt](https://github.com/easybuild-org/EasyBuild.ShipIt).
 
 ⚠ Only edit the front matter metadata at the top of this file. All other changes will be overwritten when a new release is created.
+
+## 1.4.1 - 2026-09-27
+
+### 🐞 Bug Fixes
+
+* Don't ship source files in binding packages (#16) ([1147fa3](https://github.com/fable-compiler/Fable.Package.SDK/commit/1147fa3eb1f19b54d86214c4947e0eb1218d8c0c))
+
+<strong><small>[View changes on Github](https://github.com/fable-compiler/Fable.Package.SDK/compare/b625bfb00cabbf16def347d047a938c03f69829b..1147fa3eb1f19b54d86214c4947e0eb1218d8c0c)</small></strong>
 
 ## 1.4.0 - 2026-07-14
 
