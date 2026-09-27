@@ -6,6 +6,7 @@
         We don't want generated files, so before fsharp (AssemblyAttributes) and AssemblyInfo
     -->
     <Target Name="CreateFablePackageFiles"
+        Condition="'$(FablePackageType)' == 'library'"
         BeforeTargets="FSharpSourceCodeCompileOrder;GenerateTargetFrameworkMonikerAttribute">
         <ItemGroup>
             <_PackageFiles Include="@(Compile)">

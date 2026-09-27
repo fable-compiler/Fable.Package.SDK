@@ -24,5 +24,9 @@ fixtures/
             bin/
                 Release/
                     MyLibrary.1.0.0.nupkg
+        binding-with-files/
+            bin/
+                Release/
+                    MyBinding.1.0.0.nupkg
 """
      >
